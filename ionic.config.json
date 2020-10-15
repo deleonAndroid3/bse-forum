@@ -1,0 +1,7 @@
+{
+  "name": "BSE Forum",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
