@@ -16,7 +16,7 @@ import { IQuestion, Question } from '../models/Question';
   providedIn: "root",
 })
 export class QuestionService {
-  private collectionReference: AngularFirestoreCollection<IQuestion>;
+  private collectionReference = this.ngFirestore.collection('/questions/');
   questions: IQuestion[] = [];
 
   constructor(private ngFirestore: AngularFirestore) {
