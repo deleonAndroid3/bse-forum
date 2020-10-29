@@ -1,1 +1,7 @@
+ion-tab-button.tab-selected {
+  background-color: var(--ion-color-secondary);
+}
 
+ion-tab-button {
+  transition: all 250ms ease-in;
+}

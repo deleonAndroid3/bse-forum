@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "reactnativedemo-28f3b": {
+      "hosting": {
+        "app": [
+          "reactnativedemo-28f3b"
+        ]
+      }
+    }
+  }
+}
