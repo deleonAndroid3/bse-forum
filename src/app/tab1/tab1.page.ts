@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonInfiniteScroll } from '@ionic/angular';
-import { IQuestion } from '../models/Question';
+import { IQuestion } from '../models/question.model';
 // import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 // import { CKEditorConfig } from '../../models/CKEditorConfig';
 

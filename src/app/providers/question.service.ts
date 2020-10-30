@@ -7,7 +7,7 @@ import {
   DocumentReference,
 } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
-import { IQuestion, Question } from '../models/Question';
+import { IQuestion, Question } from "../models/question.model";
 
 // import { Plugins } from '@capacitor/core';
 // const { Storage } = Plugins;
@@ -16,7 +16,7 @@ import { IQuestion, Question } from '../models/Question';
   providedIn: "root",
 })
 export class QuestionService {
-  private collectionReference = this.ngFirestore.collection('/questions/');
+  private collectionReference = this.ngFirestore.collection("/questions/");
   questions: IQuestion[] = [];
 
   constructor(private ngFirestore: AngularFirestore) {
@@ -52,10 +52,13 @@ export class QuestionService {
       );
   }
 
-  insert(question: IQuestion): Promise<DocumentReference> {
-    //TODO: test if effective
+  insert(question: IQuestion): Promise<IQuestion> {
     const q = new Question(question);
-    return this.collectionReference.add(q.value);
+    return this.collectionReference.add(q.value).then((doc) => {
+      return doc.get().then((snapshot) => {
+        return snapshot.data();
+      });
+    });
   }
 
   update(question: IQuestion): Promise<void> {

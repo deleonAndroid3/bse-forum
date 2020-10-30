@@ -10,6 +10,7 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { FirebaseModule } from "./firebase";
+import { QuestionService } from './providers/question.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { FirebaseModule } from "./firebase";
   providers: [
     StatusBar,
     SplashScreen,
+    QuestionService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent],

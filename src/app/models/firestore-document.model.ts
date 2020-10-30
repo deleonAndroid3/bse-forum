@@ -1,8 +1,8 @@
 /**
  * Firebase Document
  */
-import { timestamp } from 'rxjs/operators';
 import { firebase } from "../firebase";
+import { v4 as uuidv4 } from 'uuid'
 
 export interface IFirestoreDocument {
   id?: string;
@@ -24,11 +24,16 @@ export class FirestoreDocument<TDocument extends IFirestoreDocument> implements 
 
   constructor(obj: TDocument) {
     this._value = obj;
-    !obj.createdAt && this.TIMESTAMP()
+    !obj.createdAt && this.TIMESTAMP();
+    !obj.id && this.UUIDV4();
   }
 
   private TIMESTAMP() {
     this._value.createdAt = firebase.firestore.Timestamp.now();
+  }
+
+  private UUIDV4() {
+    this._value.id = uuidv4();
   }
 }
 
