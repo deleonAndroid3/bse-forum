@@ -1,18 +1,24 @@
 import { Component, OnInit } from "@angular/core";
 import { ActionSheetController } from '@ionic/angular';
-
+import { Plugins } from '@capacitor/core';
+import { Router } from '@angular/router';
 @Component({
   selector: "app-settings",
   templateUrl: "./settings.page.html",
   styleUrls: ["./settings.page.scss"],
 })
 export class SettingsPage implements OnInit {
-  constructor(private actionSheetController: ActionSheetController) {}
+  constructor(private router: Router,private actionSheetController: ActionSheetController) {}
 
   ngOnInit() {}
 
-  logout() {
-    console.log("logging out");
+  // logout() {
+  //   console.log("logging out");
+  // }
+  async logout(): Promise<void> {
+    await Plugins.FacebookLogin.logout();
+    console.log('Logging out !')
+    this.router.navigate(['login']);
   }
 
   async presentActionSheet() {
