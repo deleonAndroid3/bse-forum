@@ -1,29 +1,37 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, tap, switchMap } from 'rxjs/operators';
-import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { map, tap, switchMap } from "rxjs/operators";
+import { BehaviorSubject, from, Observable, Subject } from "rxjs";
+import * as firebase from "firebase/app";
+import "@codetrix-studio/capacitor-google-auth";
+import { AngularFireAuth } from "@angular/fire/auth";
+import { AngularFireModule } from "@angular/fire";
 
-import { Plugins } from '@capacitor/core';
-const { Storage } = Plugins;
+import { Plugins } from "@capacitor/core";
+const { Storage, GoogleAuth } = Plugins;
 
-const TOKEN_KEY = 'my-token';
+const TOKEN_KEY = "my-token";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class AuthenticationService {
   // Init with null to filter out the first value in a guard!
   isAuthenticated = new BehaviorSubject<boolean>(null);
-  token = '';
+  token = "";
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    public afAuth: AngularFireAuth,
+    public fireModule: AngularFireModule
+  ) {
     this.loadToken();
   }
 
   async loadToken() {
     const token = await Storage.get({ key: TOKEN_KEY });
     if (token && token.value) {
-      console.log('set token: ', token.value);
+      console.log("set token: ", token.value);
       this.token = token.value;
       this.isAuthenticated.next(true);
     } else {
@@ -43,9 +51,39 @@ export class AuthenticationService {
     );
   }
 
-  dummyLogin(): Promise<boolean> {
-    Storage.set({ key: TOKEN_KEY, value: 'my-jwt-token-perhaps?'});
+  async dummyLogin(): Promise<boolean> {
+    // Storage.set({ key: TOKEN_KEY, value: 'my-jwt-token-perhaps?'});
+    const googleUser = await GoogleAuth.signIn();
+    //const credential = firebase.auth.GoogleAuthProvider.credential(googleUser.authentication.idToken,googleUser.authentication.accessToken)
+    const credential = firebase.auth.GoogleAuthProvider.credential(
+      googleUser.authentication.idToken,
+      googleUser.authentication.accessToken
+    );
+    firebase
+      .auth()
+      .signInWithCredential(credential)
+      .then(({ user }) => {
+        const data = {
+          _id: user.uid,
+          email: user.email,
+          name: user.displayName,
+          avatar: user.photoURL,
+        };
+        const usersRef = firebase.firestore().collection("users");
+        usersRef
+          .doc(user.uid)
+          .set(data)
+          .catch((error) => {
+            alert(error);
+          });
+      })
+      .catch((error) => {
+        alert(error);
+      });
     this.isAuthenticated.next(true);
+
+    console.log("EXITED HERE");
+
     return Promise.resolve(true);
   }
 

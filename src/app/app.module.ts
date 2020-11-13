@@ -11,6 +11,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { FirebaseModule } from "./firebase";
 import { QuestionService } from './providers/question.service';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +21,8 @@ import { QuestionService } from './providers/question.service';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    FirebaseModule
+    FirebaseModule,
+    AngularFireAuthModule
   ],
   providers: [
     StatusBar,
