@@ -11,6 +11,8 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { FirebaseModule } from "./firebase";
 import { QuestionService } from './providers/question.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +22,8 @@ import { QuestionService } from './providers/question.service';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    FirebaseModule
+    FirebaseModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     StatusBar,
