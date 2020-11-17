@@ -2,15 +2,10 @@ import { map } from "rxjs/operators";
 import { Injectable } from "@angular/core";
 import {
   AngularFirestore,
-  AngularFirestoreCollection,
   DocumentChangeAction,
-  DocumentReference,
 } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
 import { IQuestion, Question } from "../models/question.model";
-
-// import { Plugins } from '@capacitor/core';
-// const { Storage } = Plugins;
 
 @Injectable({
   providedIn: "root",
@@ -45,9 +40,9 @@ export class QuestionService {
       .snapshotChanges()
       .pipe(
         map((changes) => {
-          const data = changes.payload.data();
+          const data = changes.payload.data() as IQuestion;
           const id = changes.payload.id;
-          return { id, ...(data as IQuestion) };
+          return { id, ...data };
         })
       );
   }

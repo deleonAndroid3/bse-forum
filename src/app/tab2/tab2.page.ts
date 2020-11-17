@@ -1,4 +1,6 @@
+import { IWord } from './../models/word.model';
 import { Component } from '@angular/core'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -9,13 +11,12 @@ export class Tab2Page {
   page = 0
   words = []
 
-  constructor() {
+  constructor(private router: Router) {
     this.fetchWords()
   }
 
   fetchWords(event?: any) {
     let nextPage = this.mock[this.page]
-    console.log('fetch more')
     setTimeout(() => {
       if (nextPage) {
         this.words = this.words.concat(nextPage)
@@ -26,6 +27,10 @@ export class Tab2Page {
         event.target.complete()
       }
     }, 1200)
+  }
+
+  onClickWord(id) {
+    id && this.router.navigate(["word", id]);
   }
 
   renderHeader(record, recordIndex, records) {
@@ -43,7 +48,7 @@ export class Tab2Page {
     return null;
   }
 
-  mock = [
+  mock: IWord[][] = [
     [
       { word: 'Access' },
       { word: 'Active-Matrix' },

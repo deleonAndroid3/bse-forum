@@ -2,6 +2,18 @@
   .menu-tray {
     ion-fab-button {
       display: inline-block;
+      transition: all ease-in 200ms;
+      --ripple-color: transparent
+    }
+
+    .active-tab {
+      --background: #555;
+      --border-radius: 20px;
+      width: 120px;
+
+      ion-icon {
+        margin-right: 5px;
+      }
     }
   }
 }

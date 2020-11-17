@@ -26,6 +26,7 @@ export interface CKEditorConfig {
   image?: ImageConfig;
   language?: string;
   mediaEmbed?: MediaEmbedConfig;
+  placeholder?: string;
   plugins?: Array<string | Plugin>;
   removePlugins?: string[];
   toolbar?: string[] | { items: string[]; viewportTopOffset: number };

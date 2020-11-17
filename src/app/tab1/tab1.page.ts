@@ -2,8 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { IQuestion } from '../models/question.model';
-// import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-// import { CKEditorConfig } from '../../models/CKEditorConfig';
 
 @Component({
   selector: 'app-tab1',
@@ -12,12 +10,6 @@ import { IQuestion } from '../models/question.model';
 })
 export class Tab1Page {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-  // public Editor = ClassicEditor;
-
-  // config: CKEditorConfig = {
-  //   toolbar: []
-  // }
-
   public test = 'hot'
   dummyDate = new Date().getTime();
   questions: IQuestion[] = [
@@ -177,7 +169,6 @@ export class Tab1Page {
 
   loadData(event) {
     setTimeout(() => {
-      console.log('Done');
       event.target.complete();
 
       // App logic to determine if all data is loaded

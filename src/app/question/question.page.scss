@@ -1,0 +1,72 @@
+:host(app-question) {
+    div.spinner-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+
+        ion-spinner {
+            position: relative;
+            top: -3rem;
+            height: 4rem;
+            width: 4rem;
+        }
+    }
+
+    .tags-container {
+        ion-chip {
+            height: 20px;
+
+            ion-label {
+                font-size: 11px;
+            }
+        }
+
+        ion-chip:nth-child(1) {
+            margin-left: 0;
+        }
+    }
+
+    .user-thumb {
+        display: inherit;
+        div {
+            margin-right: 0.5rem;
+        }
+
+        ion-avatar {
+            height: 42px;
+            width: 42px;
+        }
+    }
+
+    ion-avatar.current-user {
+        height: 42px;
+        width: 42px;
+    }
+
+    .jump-btn {
+        height: 42px;
+        width: 42px;
+        border-radius: 50%;
+
+        ion-icon:nth-child(1) {
+            position: absolute;
+            top: 10px;
+        }
+
+        ion-icon:nth-child(2) {
+            position: absolute;
+            top: 16px;
+        }
+
+        ion-icon {
+            width: 26px;
+            height: 26px;
+            left: 14px;
+        }
+    }
+
+    .answer-input {
+        border-bottom: 1px solid #b0b0b0
+    }
+}

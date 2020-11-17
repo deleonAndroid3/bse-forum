@@ -33,20 +33,45 @@
     </ion-row>
     <ion-row class="menu-tray">
       <ion-col>
-        <ion-fab-button size="small">
+        <ion-fab-button
+          [ngClass]="{'active-tab': currentTab === 'bookmarks'}"
+          (click)="onClickTab('bookmarks')"
+          size="small"
+        >
           <ion-icon name="bookmark-outline"></ion-icon>
+          <ion-text *ngIf="currentTab === 'bookmarks'" >Bookmarks</ion-text>
         </ion-fab-button>
-        <ion-fab-button size="small">
+        <ion-fab-button
+          [ngClass]="{'active-tab': currentTab === 'favorites'}"
+          (click)="onClickTab('favorites')"
+          size="small"
+        >
           <ion-icon name="star-outline"></ion-icon>
+          <ion-text *ngIf="currentTab === 'favorites'" >Favorites</ion-text>
         </ion-fab-button>
-        <ion-fab-button size="small">
+        <ion-fab-button
+          [ngClass]="{'active-tab': currentTab === 'questions'}"
+          (click)="onClickTab('questions')"
+          size="small"
+        >
           <ion-icon name="help-circle-outline"></ion-icon>
+          <ion-text *ngIf="currentTab === 'questions'" >Questions</ion-text>
         </ion-fab-button>
-        <ion-fab-button size="small">
+        <ion-fab-button
+          [ngClass]="{'active-tab': currentTab === 'answers'}"
+          (click)="onClickTab('answers')"
+          size="small"
+        >
           <ion-icon name="chatbubble-outline"></ion-icon>
+          <ion-text *ngIf="currentTab === 'answers'" >Answers</ion-text>
         </ion-fab-button>
-        <ion-fab-button size="small">
+        <ion-fab-button
+          [ngClass]="{'active-tab': currentTab === 'others'}"
+          (click)="onClickTab('others')"
+          size="small"
+        >
           <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+          <ion-text *ngIf="currentTab === 'others'" >Others</ion-text>
         </ion-fab-button>
       </ion-col>
     </ion-row>

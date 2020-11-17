@@ -10,7 +10,7 @@
       <ion-label>{{ header }}</ion-label>
     </ion-item-divider>
 
-    <ion-item *virtualItem="let item">
+    <ion-item *virtualItem="let item" (click)="onClickWord(item.id || 'mocked id')">
       <ion-label>
         <h3>{{ item.word }}</h3>
       </ion-label>

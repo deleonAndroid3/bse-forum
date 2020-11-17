@@ -30,6 +30,10 @@ const routes: Routes = [
   {
     path: 'settings',
     loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
+  },
+  {
+    path: 'word/:id',
+    loadChildren: () => import('./word/word.module').then( m => m.WordPageModule)
   }
 ];
 @NgModule({

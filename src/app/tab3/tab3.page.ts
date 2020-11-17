@@ -7,10 +7,18 @@ import { Router } from '@angular/router';
   styleUrls: ["tab3.page.scss"],
 })
 export class Tab3Page {
+  currentTab = 'bookmarks';
+
   constructor(
     private router: Router) {}
 
   viewSettings() {
     this.router.navigate(['settings']);
+  }
+
+  onClickTab(name) {
+    this.currentTab = name;
+
+    //fetch logic
   }
 }

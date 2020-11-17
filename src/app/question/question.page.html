@@ -8,5 +8,121 @@
 </ion-header>
 
 <ion-content>
+  <div *ngIf="isLoading" class="spinner-container">
+    <ion-spinner name="crescent" size="large"></ion-spinner>
+  </div>
 
+  <ion-list *ngIf="!isLoading">
+    <!-- Question -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title
+          >{{ "What is love? Baby don't hurt me no more." }}</ion-card-title
+        >
+        <ion-card-subtitle class="tags-container">
+          <!-- <ion-chip *ngFor="let tag of question.tags" > -->
+          <ion-chip (click)="onTagClick('123123')">
+            <ion-label color="primary">Interface</ion-label>
+          </ion-chip>
+          <ion-label style="float: right">Dec. 12, 2020</ion-label>
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <div [innerHTML]="dummyHtml"></div>
+      </ion-card-content>
+      <ion-item>
+        <div>
+          <ion-button>
+            <ion-icon name="arrow-up-outline"></ion-icon>
+          </ion-button>
+          <span>452</span>
+          <ion-button>
+            <ion-icon name="arrow-down-outline"></ion-icon>
+          </ion-button>
+          <a href="#"><ion-icon name="share-social-outline"></ion-icon>Share</a>
+        </div>
+
+        <ion-label class="user-thumb" slot="end">
+          <div>
+            <h3>John Doe</h3>
+            <p>114.2k</p>
+          </div>
+          <ion-avatar size="medium">
+            <img
+              [src]="'https://gravatar.com/avatar/dba6ba5_c566f943241fb9cd9ada7741?d=identicon&f=y'"
+            />
+          </ion-avatar>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <!-- Answers -->
+    <h2 style="margin-left: 10px">
+      Answers <ion-icon name="chatbubble-outline"></ion-icon
+      ><span style="font-size: 16px">12</span>
+    </h2>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>
+          <ion-label style="float: right">Dec. 12, 2020</ion-label>
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <div [innerHTML]="dummyHtml"></div>
+      </ion-card-content>
+      <ion-item>
+        <div>
+          <ion-button>
+            <ion-icon name="arrow-up-outline"></ion-icon>
+          </ion-button>
+          <span>452</span>
+          <ion-button>
+            <ion-icon name="arrow-down-outline"></ion-icon>
+          </ion-button>
+          <a href="#"><ion-icon name="share-social-outline"></ion-icon>Share</a>
+        </div>
+
+        <ion-label class="user-thumb" slot="end">
+          <div>
+            <h3>John Doe</h3>
+            <p>114.2k</p>
+          </div>
+          <ion-avatar size="medium">
+            <img
+              [src]="'https://ionicframework.com/docs/demos/api/list/avatar-rey.png'"
+            />
+          </ion-avatar>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </ion-list>
 </ion-content>
+
+<ion-toolbar>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-row class="ion-align-items-start" style="width: 100%">
+        <ion-col style="max-width: 54px">
+          <ion-avatar class="current-user" size="medium">
+            <img
+              [src]="'https://ionicframework.com/docs/demos/api/list/avatar-yoda.png'"
+            />
+          </ion-avatar>
+        </ion-col>
+        <ion-col>
+          <ion-input
+            (click)="onInputClick($event)"
+            class="answer-input"
+            placeholder="Write your answer."
+            style="text-align: left"
+          ></ion-input>
+        </ion-col>
+        <ion-col style="max-width: 54px">
+          <button class="jump-btn" ion-button>
+            <ion-icon name="chevron-down-outline"></ion-icon>
+            <ion-icon name="chevron-down-outline"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-toolbar>

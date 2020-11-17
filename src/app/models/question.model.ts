@@ -1,4 +1,5 @@
 import { FirestoreDocument, IFirestoreDocument } from "./firestore-document.model";
+import { IWord } from './word.model';
 import { IUser } from "./user.model";
 
 export interface IQuestion extends IFirestoreDocument {
@@ -10,6 +11,7 @@ export interface IQuestion extends IFirestoreDocument {
   answers?: number;
   hasCorrectAnswer?: boolean;
   user?: IUser;
+  tags?: IWord[];
 }
 
 // To show example of inheritance
@@ -19,7 +21,7 @@ export class Question extends FirestoreDocument<IQuestion> {
   constructor(question: IQuestion, user?: IUser) {
 
     if(!user && !question.user) {
-      // get current user.
+      // TODO: get current user.
       user = {};
     }
 
@@ -29,6 +31,7 @@ export class Question extends FirestoreDocument<IQuestion> {
       votes: 0,
       answers: 0,
       comments: 0,
+      tags: [],
       hasCorrectAnswer: false,
       ...question,
       user: user || question.user,

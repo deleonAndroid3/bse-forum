@@ -6,7 +6,6 @@ import { Tab1Page } from './tab1.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { Tab1PageRoutingModule } from './tab1-routing.module';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { TimeagoModule } from 'ngx-timeago';
 
 @NgModule({
@@ -16,7 +15,6 @@ import { TimeagoModule } from 'ngx-timeago';
     FormsModule,
     ExploreContainerComponentModule,
     Tab1PageRoutingModule,
-    CKEditorModule,
     TimeagoModule.forChild()
   ],
   declarations: [Tab1Page]

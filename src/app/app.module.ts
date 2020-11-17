@@ -13,6 +13,7 @@ import { FirebaseModule } from "./firebase";
 import { QuestionService } from './providers/question.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { SharedModule } from "./shared/shared.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { environment } from '../environments/environment';
     HttpClientModule,
     FirebaseModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    SharedModule,
   ],
   providers: [
     StatusBar,

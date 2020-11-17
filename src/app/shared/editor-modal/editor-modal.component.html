@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Compose</ion-title>
+    <ion-buttons slot="start">
+      <ion-button color="dark" (click)="dismiss()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ckeditor [editor]="Editor" [config]="config" [data]="data"></ckeditor>
+</ion-content>

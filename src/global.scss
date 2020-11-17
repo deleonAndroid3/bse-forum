@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -25,10 +25,19 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-
 :root {
-    --ion-color-primary: #F34053;
-    --ion-color-primary-rgb: 243, 64, 83;
-    --ion-color-secondary: #D9263A;
-    --ion-color-secondary-rgb: 217, 38, 58;
-  }
+  --ion-color-primary: #f34053;
+  --ion-color-primary-rgb: 243, 64, 83;
+  --ion-color-secondary: #d9263a;
+  --ion-color-secondary-rgb: 217, 38, 58;
+}
+
+.ck-editor__editable {
+  height: 50vh;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.link-color {
+  color: #3880ff;
+}

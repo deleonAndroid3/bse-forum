@@ -8,6 +8,7 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFireModule } from "@angular/fire";
 
 import { Plugins } from "@capacitor/core";
+import { Authentication, User } from '@codetrix-studio/capacitor-google-auth/dist/esm/user';
 const { Storage, GoogleAuth } = Plugins;
 
 const TOKEN_KEY = "my-token";
@@ -51,9 +52,9 @@ export class AuthenticationService {
     );
   }
 
-  async dummyLogin(): Promise<boolean> {
+  async googleLogin(): Promise<boolean> {
     // Storage.set({ key: TOKEN_KEY, value: 'my-jwt-token-perhaps?'});
-    const googleUser = await GoogleAuth.signIn();
+    const googleUser = await (GoogleAuth as GoogleAuthPlugin).signIn();
     //const credential = firebase.auth.GoogleAuthProvider.credential(googleUser.authentication.idToken,googleUser.authentication.accessToken)
     const credential = firebase.auth.GoogleAuthProvider.credential(
       googleUser.authentication.idToken,
@@ -64,7 +65,7 @@ export class AuthenticationService {
       .signInWithCredential(credential)
       .then(({ user }) => {
         const data = {
-          _id: user.uid,
+          id: user.uid,
           email: user.email,
           name: user.displayName,
           avatar: user.photoURL,
@@ -91,4 +92,13 @@ export class AuthenticationService {
     this.isAuthenticated.next(false);
     return Storage.remove({ key: TOKEN_KEY });
   }
+}
+
+// Pull request still not merged
+// https://github.com/CodetrixStudio/CapacitorGoogleAuth/pull/66/commits/50a2b3cb6c1552014713771e0d195bd9c033f32c
+interface GoogleAuthPlugin {
+  signIn(options: { value: string }): Promise<{value: string}>;
+  signIn(): Promise<User>;
+  refresh(): Promise<Authentication>;
+  signOut(): Promise<any>;
 }

@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Glossary</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="isLoading || !word" class="spinner-container">
+    <ion-spinner name="crescent" size="large"></ion-spinner>
+  </div>
+
+  <ng-container *ngIf="word">
+    <ion-list>
+      <ion-list-header> {{ word.word }} </ion-list-header>
+      <ion-item>
+        <div [innerHTML]="word.definition"></div>
+      </ion-item>
+      <ng-container
+        *ngIf="word.translationExamples && word.translationExamples.length"
+      >
+        <ion-list-header> Examples </ion-list-header>
+          <ion-item *ngFor="let t of word.translationExamples">
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <h5 class="tx-header">English</h5>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <p>{{t.eng}}</p>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <h5 class="tx-header">Japanese</h5>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <p>{{t.jp}}</p>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+      </ng-container>
+      <ng-container
+        *ngIf="word.relatedQuestions && word.relatedQuestions.length"
+      >
+      <ion-list-header> Related Questions </ion-list-header>
+       <ion-item class="link-color" *ngFor="let r of word.relatedQuestions" (click)="onClickQuestion(r.id)">
+         {{ r.title }}
+       </ion-item>
+      </ng-container>
+    </ion-list>
+  </ng-container>
+</ion-content>
