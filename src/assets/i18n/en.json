@@ -1,0 +1,16 @@
+{
+    "ANSWER": "Answer",
+    "CANCEL": "Cancel",
+    "CHANGE_PHOTO": "Change Photo",
+    "LANGUAGE": "Language",
+    "PREFERENCES": "Preferences",
+    "PROFILE": "Profile",
+    "SETTINGS": "Settings",
+    "USER_SETTINGS": "User Settings",
+    "LOGOUT": "Log out",
+    "PHOTO_DRAWER": {
+        "CAMERA": "Use Camera",
+        "LIBRARY": "Select from Library"
+    },
+    "GREETINGS": "Hi {{firstName}}!"
+}

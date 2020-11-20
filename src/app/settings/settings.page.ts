@@ -1,5 +1,7 @@
+import { LanguageService } from "./../providers/language.service";
 import { Component, OnInit } from "@angular/core";
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController } from "@ionic/angular";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-settings",
@@ -7,7 +9,15 @@ import { ActionSheetController } from '@ionic/angular';
   styleUrls: ["./settings.page.scss"],
 })
 export class SettingsPage implements OnInit {
-  constructor(private actionSheetController: ActionSheetController) {}
+  selectedLang = "";
+
+  constructor(
+    private actionSheetController: ActionSheetController,
+    private languageService: LanguageService,
+    private translate: TranslateService
+  ) {
+    this.selectedLang = this.languageService.currentLang;
+  }
 
   ngOnInit() {}
 
@@ -15,27 +25,32 @@ export class SettingsPage implements OnInit {
     console.log("logging out");
   }
 
+  onSelectLanguage() {
+    this.languageService.setLanguage(this.selectedLang);
+  }
+
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
-      header: "Change Profile Photo",
+      header: this.translate.instant("CHANGE_PHOTO"),
+      mode: 'md',
       cssClass: "my-custom-class",
       buttons: [
         {
-          text: "Use Camera",
+          text: this.translate.instant("PHOTO_DRAWER.CAMERA"),
           icon: "camera-outline",
           handler: () => {
             console.log("camera clicked");
           },
         },
         {
-          text: "Select From Library",
+          text: this.translate.instant("PHOTO_DRAWER.LIBRARY"),
           icon: "images-outline",
           handler: () => {
             console.log("Select From Library clicked");
           },
         },
         {
-          text: "Cancel",
+          text: this.translate.instant("CANCEL"),
           icon: "close",
           role: "cancel",
           handler: () => {

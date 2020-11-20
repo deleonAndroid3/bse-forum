@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 })
 export class Tab3Page {
   currentTab = 'bookmarks';
-
   constructor(
     private router: Router) {}
 

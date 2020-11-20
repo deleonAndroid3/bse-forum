@@ -1,0 +1,16 @@
+{
+    "ANSWER": "回答",
+    "CANCEL": "取消",
+    "CHANGE_PHOTO": "写真を変更する",
+    "LANGUAGE": "言語 (Language)",
+    "PREFERENCES": "環境設定",
+    "PROFILE": "プロフィール",
+    "SETTINGS": "設定",
+    "USER_SETTINGS": "ユーザー設定",
+    "LOGOUT": "出口",
+    "PHOTO_DRAWER": {
+        "CAMERA": "カメラを使う",
+        "LIBRARY": "フォトライブラリから選択"
+    },
+    "GREETINGS": "こんにちは、{{firstName}}！"
+}
