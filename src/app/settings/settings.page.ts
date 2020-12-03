@@ -2,6 +2,8 @@ import { LanguageService } from "./../providers/language.service";
 import { Component, OnInit } from "@angular/core";
 import { ActionSheetController } from "@ionic/angular";
 import { TranslateService } from '@ngx-translate/core';
+import { AuthenticationService } from '../providers/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-settings",
@@ -14,7 +16,9 @@ export class SettingsPage implements OnInit {
   constructor(
     private actionSheetController: ActionSheetController,
     private languageService: LanguageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private authService: AuthenticationService,
+    private router: Router
   ) {
     this.selectedLang = this.languageService.currentLang;
   }
@@ -22,7 +26,9 @@ export class SettingsPage implements OnInit {
   ngOnInit() {}
 
   logout() {
+    this.authService.logout();
     console.log("logging out");
+    this.router.navigate(['login']);
   }
 
   onSelectLanguage() {

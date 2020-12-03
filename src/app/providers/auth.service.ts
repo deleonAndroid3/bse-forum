@@ -5,14 +5,17 @@ import { BehaviorSubject, from, Observable, Subject } from "rxjs";
 import * as firebase from "firebase/app";
 import "@codetrix-studio/capacitor-google-auth";
 import { AngularFireAuth } from "@angular/fire/auth";
-import { AngularFireModule } from "@angular/fire";
 
 import { Plugins } from "@capacitor/core";
-import { Authentication, User } from '@codetrix-studio/capacitor-google-auth/dist/esm/user';
+import {
+  Authentication,
+  User,
+} from "@codetrix-studio/capacitor-google-auth/dist/esm/user";
+import { IUser } from '../models/user.model';
 const { Storage, GoogleAuth } = Plugins;
 
 const TOKEN_KEY = "my-token";
-
+const USER_KEY = "user-key";
 @Injectable({
   providedIn: "root",
 })
@@ -20,24 +23,34 @@ export class AuthenticationService {
   // Init with null to filter out the first value in a guard!
   isAuthenticated = new BehaviorSubject<boolean>(null);
   token = "";
+  currentUser: IUser;
 
   constructor(
     private http: HttpClient,
     public afAuth: AngularFireAuth,
-    public fireModule: AngularFireModule
   ) {
-    this.loadToken();
+    this.loadFirebaseToken();
   }
+  
 
-  async loadToken() {
-    const token = await Storage.get({ key: TOKEN_KEY });
-    if (token && token.value) {
-      console.log("set token: ", token.value);
-      this.token = token.value;
-      this.isAuthenticated.next(true);
-    } else {
-      this.isAuthenticated.next(false);
-    }
+  async loadFirebaseToken() {
+    //const token = await Storage.get({ key: TOKEN_KEY })
+    const isAuthenticated = this.isAuthenticated;
+    this.afAuth.authState.subscribe(async (firebaseUser) => {
+      if (firebaseUser) {
+        // User is signed in.
+        const data = (await Storage.get({ key : USER_KEY })).value;
+        this.currentUser = JSON.parse(data);
+        if(this.currentUser && this.currentUser.id === firebaseUser.uid){
+          isAuthenticated.next(true);
+        }else{
+          isAuthenticated.next(false);
+        }
+      } else {
+        // No user is signed in.
+        this.isAuthenticated.next(false);
+      }
+    });
   }
 
   login(credentials: { email; password }): Observable<any> {
@@ -60,16 +73,17 @@ export class AuthenticationService {
       googleUser.authentication.idToken,
       googleUser.authentication.accessToken
     );
-    firebase
-      .auth()
+    this.afAuth
       .signInWithCredential(credential)
       .then(({ user }) => {
-        const data = {
+        const data: IUser = {
           id: user.uid,
           email: user.email,
           name: user.displayName,
           avatar: user.photoURL,
         };
+        this.currentUser = data;
+        Storage.set({ key: USER_KEY, value: JSON.stringify(data) });
         const usersRef = firebase.firestore().collection("users");
         usersRef
           .doc(user.uid)
@@ -80,6 +94,7 @@ export class AuthenticationService {
       })
       .catch((error) => {
         alert(error);
+        this.isAuthenticated.next(false);
       });
     this.isAuthenticated.next(true);
 
@@ -89,15 +104,16 @@ export class AuthenticationService {
   }
 
   logout(): Promise<void> {
+    this.afAuth.signOut();
     this.isAuthenticated.next(false);
-    return Storage.remove({ key: TOKEN_KEY });
+    return Storage.remove({ key: USER_KEY });
   }
 }
 
 // Pull request still not merged
 // https://github.com/CodetrixStudio/CapacitorGoogleAuth/pull/66/commits/50a2b3cb6c1552014713771e0d195bd9c033f32c
 interface GoogleAuthPlugin {
-  signIn(options: { value: string }): Promise<{value: string}>;
+  signIn(options: { value: string }): Promise<{ value: string }>;
   signIn(): Promise<User>;
   refresh(): Promise<Authentication>;
   signOut(): Promise<any>;
