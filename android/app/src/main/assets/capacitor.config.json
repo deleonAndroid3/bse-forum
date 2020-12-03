@@ -9,10 +9,14 @@
       "launchShowDuration": 0
     },
     "GoogleAuth": {
+<<<<<<< HEAD
       "scopes": [
         "profile",
         "email"
       ],
+=======
+      "scopes": ["profile", "email"],
+>>>>>>> 40f7e7a41d004b0be0b69a38256560cf830f925c
       "serverClientId": "865507949690-tg5b0edf4rj6k8lov8vg6icglno69dcp.apps.googleusercontent.com"
     }
   },
