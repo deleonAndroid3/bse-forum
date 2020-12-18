@@ -1,7 +1,33 @@
 version: 2.1
 orbs:
-  node: circleci/node@3.0.0
+  node: circleci/node@4.0.0
+
+jobs:
+  unitTest:
+    docker:
+      - image: circleci/node:latest
+
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-cache-dependencies-{{ checksum "package.json" }}-{{ arch }}
+            
+      - run:
+          name: Install NPM dependencies
+          command: npm install
+
+      - save_cache:
+          paths:
+            - ~/.cache/npm
+          key: v1-cache-dependencies-{{ checksum "package.json" }}-{{ arch }}
+
+      - run: 
+          name: Run E2E Test
+          command: npm run e2e
+
+
 workflows:
   node-tests:
     jobs:
+      - unitTest
       - node/test
